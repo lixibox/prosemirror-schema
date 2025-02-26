@@ -4,4 +4,4 @@
 node_modules
 
 # ignore dist
-dist
+# dist
