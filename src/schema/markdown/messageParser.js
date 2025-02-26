@@ -22,6 +22,13 @@ export const messageMdToPmMapping = {
       return { userId, userFullName };
     },
   },
+  teamMention: {
+    node: 'team_mention',
+    getAttrs: ({ teamMention }) => {
+      const { teamId, teamName } = teamMention;
+      return { teamId, teamName };
+    },
+  },
 };
 
 const md = MarkdownIt('commonmark', {

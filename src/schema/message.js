@@ -37,7 +37,7 @@ export const messageSchema = new Schema({
         }
         return ["img", attrs];
       }
-    }, 
+    },
     ordered_list: Object.assign(orderedList, {
       content: 'list_item+',
       group: 'block',
@@ -70,6 +70,33 @@ export const messageSchema = new Schema({
             const userId = dom.getAttribute('mention-user-id');
             const userFullName = dom.getAttribute('mention-user-full-name');
             return { userId, userFullName };
+          },
+        },
+      ],
+    },
+    team_mention: {
+      attrs: { teamName: { default: '' }, teamId: { default: '' } },
+      group: 'inline',
+      inline: true,
+      selectable: true,
+      draggable: true,
+      atom: true,
+      toDOM: node => [
+        'span',
+        {
+          class: 'prosemirror-team-mention-node',
+          'mention-team-id': node.attrs.teamId,
+          'mention-team-name': node.attrs.teamName,
+        },
+        `@${node.attrs.teamName}`,
+      ],
+      parseDOM: [
+        {
+          tag: 'span[mention-team-id][mention-team-name]',
+          getAttrs: dom => {
+            const teamId = dom.getAttribute('mention-team-id');
+            const teamName = dom.getAttribute('mention-team-name');
+            return { teamId, teamName };
           },
         },
       ],

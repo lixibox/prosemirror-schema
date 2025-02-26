@@ -2,6 +2,7 @@ import { MarkdownSerializer as MarkdownSerializerBase } from 'prosemirror-markdo
 
 import {
   mention,
+  team_mention,
   blockquote,
   code_block,
   bullet_list,
@@ -21,6 +22,7 @@ import {
 export const MessageMarkdownSerializer = new MarkdownSerializerBase(
   {
     mention,
+    team_mention,
     blockquote,
     code_block,
     bullet_list,

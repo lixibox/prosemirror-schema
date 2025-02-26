@@ -9,6 +9,17 @@ export const mention = (state, node) => {
   state.write(`[${escapedDisplayName}](${uri})`);
 };
 
+export const team_mention = (state, node) => {
+  const uri = state.esc(
+    `team_mention://team/${node.attrs.teamId}/${encodeURIComponent(
+      node.attrs.teamName
+    )}`
+  );
+  const escapedDisplayName = state.esc('#' + (node.attrs.teamName || ''));
+
+  state.write(`[${escapedDisplayName}](${uri})`);
+};
+
 export const blockquote = (state, node) => {
   state.wrapBlock('> ', null, node, () => state.renderContent(node));
 };
@@ -52,7 +63,7 @@ export const image = (state, node) => {
   if (node.attrs.height) {
     const param = `cw_image_height=${node.attrs.height}`;
     if (src.includes('?')) {
-      src = src.includes('cw_image_height=') ? 
+      src = src.includes('cw_image_height=') ?
         src.replace(/cw_image_height=[^&]+/, param) : `${src}&${param}`;
     } else {
       src += `?${param}`;
